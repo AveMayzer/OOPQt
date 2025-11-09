@@ -11,10 +11,10 @@
 
 struct TCommParams
 {
-    QHostAddress rHost;  // receive host
-    quint16      rPort;  // receive port
-    QHostAddress sHost;  // send host
-    quint16      sPort;  // send port
+    QHostAddress rHost;
+    quint16      rPort;
+    QHostAddress sHost;
+    quint16      sPort;
 };
 
 class TCommunicator : public QUdpSocket

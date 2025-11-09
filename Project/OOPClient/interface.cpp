@@ -15,7 +15,6 @@ void TInterface::setupUI()
 {
     mainLayout = new QVBoxLayout(this);
 
-    // Группа создания полинома
     createGroup = new QGroupBox("Параметры полинома");
     QGridLayout* createLayout = new QGridLayout(createGroup);
 
@@ -36,18 +35,15 @@ void TInterface::setupUI()
 
     mainLayout->addWidget(createGroup);
 
-    // Группа корней
     rootsGroup = new QGroupBox("Корни полинома");
     rootsLayout = new QVBoxLayout(rootsGroup);
     mainLayout->addWidget(rootsGroup);
 
-    // Кнопка создания
     createPolynomBtn = new QPushButton("Создать полином");
     createPolynomBtn->setStyleSheet("QPushButton { background-color: #4CAF50; color: white; font-weight: bold; padding: 10px; }");
     connect(createPolynomBtn, SIGNAL(clicked()), this, SLOT(formRequest()));
     mainLayout->addWidget(createPolynomBtn);
 
-    // Группа операций
     operationsGroup = new QGroupBox("Операции с полиномом");
     QGridLayout* operationsLayout = new QGridLayout(operationsGroup);
 
@@ -97,7 +93,6 @@ void TInterface::setupUI()
 
     mainLayout->addWidget(operationsGroup);
 
-    // Группа отображения
     displayGroup = new QGroupBox("Отображение полинома");
     QHBoxLayout* displayLayout = new QHBoxLayout(displayGroup);
 
@@ -111,7 +106,6 @@ void TInterface::setupUI()
 
     mainLayout->addWidget(displayGroup);
 
-    // ИСПРАВЛЕНИЕ: Изменим изначальный текст
     polynomialDisplayLabel = new QLabel("Сначала создайте полином");
     polynomialDisplayLabel->setStyleSheet("QLabel { padding: 15px; background-color: #ffffcc; border: 2px solid #ffaa00; font-size: 16px; font-family: 'Courier New', monospace; color: #cc6600; }");
     polynomialDisplayLabel->setWordWrap(true);
@@ -129,7 +123,6 @@ void TInterface::onDegreeChanged()
     polynomialCreated = false;
     updateOperationsEnabled();
 
-    // ИСПРАВЛЕНИЕ: Обновляем текст при изменении степени
     updateDisplayText("Сначала создайте полином с выбранными параметрами");
 
     int degree = degreeSpinBox->value();
@@ -222,7 +215,7 @@ void TInterface::formRequest()
         }
     }
     else {
-        // Проверяем, создан ли полином
+
         if (!polynomialCreated) {
             updateDisplayText("Ошибка: Сначала создайте полином!",
                               "QLabel { padding: 15px; background-color: #ffe8e8; border: 2px solid #ff0000; font-size: 16px; font-family: 'Courier New', monospace; color: #cc0000; }");

@@ -3,7 +3,7 @@
 #include "Array.h"
 #include <iostream>
 
-class QString; // Forward declaration
+class QString;
 
 class Polynom
 {

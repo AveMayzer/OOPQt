@@ -38,7 +38,7 @@ private:
     void updateOperationsEnabled();
     void updateDisplayText(const QString& text, const QString& style = QString()); // ДОБАВЛЕНО
 
-    // UI элементы
+
     QVBoxLayout* mainLayout;
 
     QGroupBox* createGroup;

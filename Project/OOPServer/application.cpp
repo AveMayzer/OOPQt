@@ -5,7 +5,7 @@
 
 ServerApplication::ServerApplication(int argc, char *argv[]) : QCoreApplication(argc, argv)
 {
-    // Сервер: получает на 10001, отправляет на 10000
+
     TCommParams pars = { QHostAddress("127.0.0.1"), 10001,
                         QHostAddress("127.0.0.1"), 10000 };
     comm = new TCommunicator(pars, this);
@@ -59,7 +59,6 @@ QString ServerApplication::processRequest(int messageType, const QStringList& pa
             if (polynomial) delete polynomial;
             polynomial = new Polynom(degree, number(leadingRe, leadingIm));
 
-            // Установка корней
             int paramIndex = 3;
             for (int i = 0; i < degree && paramIndex + 1 < params.size(); i++) {
                 double rootRe = params[paramIndex++].toDouble();
