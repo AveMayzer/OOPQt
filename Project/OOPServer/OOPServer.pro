@@ -13,10 +13,8 @@ SOURCES += \
     ../communicator/common.cpp \
     ../communicator/communicator.cpp \
     application.cpp \
-    array.cpp \
     complex.cpp \
-    main.cpp \
-    polynom.cpp
+    main.cpp
 
 HEADERS += \
     ../communicator/common.h \
@@ -24,7 +22,6 @@ HEADERS += \
     application.h \
     array.h \
     complex.h \
-    number.h \
     polynom.h
 
 # Default rules for deployment.

@@ -16,12 +16,11 @@ ClientApplication::ClientApplication(int argc, char *argv[])
     connect(comm, SIGNAL(recieved(QByteArray)), this, SLOT(fromCommunicator(QByteArray)));
     connect(interface, SIGNAL(request(QString)), this, SLOT(toCommunicator(QString)));
 
-    qDebug() << "Client application started with communicator";
+    qDebug() << "Client application started";
 }
 
 void ClientApplication::fromCommunicator(QByteArray msg)
 {
-    qDebug() << "Calling interface->answer() with:" << QString(msg);
     interface->answer(QString(msg));
 }
 

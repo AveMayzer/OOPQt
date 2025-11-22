@@ -5,13 +5,14 @@
 using namespace std;
 
 TComplex::TComplex() {
+    this->re = 0;
+    this->im = 0;
 }
-
 
 TComplex::TComplex(double re) {
     this->re = re;
+    this->im = 0;
 }
-
 
 TComplex::TComplex(double re, double im) {
     this->re = re;
@@ -32,7 +33,7 @@ TComplex TComplex::operator*(const TComplex& other) const {
 
 TComplex TComplex::operator/(const TComplex& other) const {
     double denom = other.re * other.re + other.im * other.im;
-    return TComplex( (re * other.re + im * other.im) / denom, (im * other.re - re * other.im) / denom) ;
+    return TComplex((re * other.re + im * other.im) / denom, (im * other.re - re * other.im) / denom);
 }
 
 TComplex TComplex::operator+=(const TComplex& other) {
@@ -50,12 +51,48 @@ TComplex TComplex::operator/=(const TComplex& other) {
     return *this;
 }
 
+// Операторы сравнения
+bool TComplex::operator==(const TComplex& other) const {
+    return re == other.re && im == other.im;
+}
 
+bool TComplex::operator==(double value) const {
+    return re == value && im == 0;
+}
+
+bool TComplex::operator!=(const TComplex& other) const {
+    return !(*this == other);
+}
+
+bool TComplex::operator!=(double value) const {
+    return !(*this == value);
+}
+
+bool TComplex::operator<(const TComplex& second) const {
+    double abs1 = std::sqrt(re * re + im * im);
+    double abs2 = std::sqrt(second.re * second.re + second.im * second.im);
+
+    if (abs1 < abs2) return true;
+    if (abs1 == abs2) {
+        if (std::atan2(im, re) < std::atan2(second.im, second.re)) return true;
+    }
+    return false;
+}
+
+bool TComplex::operator>(const TComplex& second) const {
+    double abs1 = std::sqrt(re * re + im * im);
+    double abs2 = std::sqrt(second.re * second.re + second.im * second.im);
+
+    if (abs1 > abs2) return true;
+    if (abs1 == abs2) {
+        if (std::atan2(im, re) > std::atan2(second.im, second.re)) return true;
+    }
+    return false;
+}
 
 double TComplex::getRe() const {
     return this->re;
 }
-
 
 double TComplex::getIm() const {
     return this->im;
@@ -75,24 +112,6 @@ TComplex pow(TComplex complex, double n) {
     return TComplex(new_r * cos(new_arg), new_r * sin(new_arg));
 }
 
-bool TComplex::operator<(TComplex& second) {
-    if (abs(this) < abs(&second)) return true;
-    if (abs(this) == abs(&second)) {
-        if (atan(this->im / this->re) < atan(second.im / second.re)) return true;
-    }
-    return false;
-}
-
-
-bool TComplex::operator>(TComplex& second) {
-    if (abs(this) > abs(&second)) return true;
-    if (abs(this) == abs(&second)) {
-        if (atan(this->im / this->re) > atan(second.im / second.re)) return true;
-    }
-    return false;
-}
-
-
 std::istream& operator>>(std::istream& in, TComplex& c) {
     in >> c.re >> c.im;
     return in;
@@ -107,6 +126,6 @@ std::ostream& operator<<(std::ostream& out, const TComplex& c) {
         out << c.im << "i";
         return out;
     }
-    out << c.re << (c.im >= 0 ? "+" : "-") << (c.im >= 0 ? c.im : -c.im) << "i";
+    out << c.re << (c.im >= 0 ? "+" : "") << c.im << "i";
     return out;
 }

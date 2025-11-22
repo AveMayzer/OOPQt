@@ -5,7 +5,7 @@ using namespace std;
 
 class TComplex {
 public:
-    TComplex( );
+    TComplex();
     TComplex(double re);
     TComplex(double re, double im);
 
@@ -22,13 +22,16 @@ public:
 
     double abs(TComplex* complex);
 
-    bool operator<(TComplex& second);
-    bool operator>(TComplex& second);
+    bool operator<(const TComplex& second) const;
+    bool operator>(const TComplex& second) const;
+    bool operator==(const TComplex& other) const;
+    bool operator==(double value) const;
+    bool operator!=(const TComplex& other) const;
+    bool operator!=(double value) const;
 
     friend std::istream& operator>>(std::istream& in, TComplex& c);
     friend std::ostream& operator<<(std::ostream& out, const TComplex& c);
     friend TComplex pow(TComplex complex, double n);
-
 
 private:
     double re = 0;

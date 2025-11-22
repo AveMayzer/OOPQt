@@ -2,77 +2,93 @@
 #define TINTERFACE_H
 
 #include <QWidget>
-#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QRadioButton>
+#include <QSpinBox>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QSpinBox>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QGroupBox>
-#include <QVector>
+#include <QLabel>
+#include <QButtonGroup>
+#include <QList>
 #include "../communicator/common.h"
 
 class TInterface : public QWidget
 {
     Q_OBJECT
 
-public:
-    TInterface(QWidget *parent = nullptr);
-    ~TInterface();
-
-signals:
-    void request(QString msg);
-
-public slots:
-    void answer(QString msg);
-
-private slots:
-    void formRequest();
-    void onDegreeChanged();
-
-private:
-    void setupUI();
-    void updateRootsGroup();
-    void clearRootsInputs();
-    void updateOperationsEnabled();
-    void updateDisplayText(const QString& text, const QString& style = QString()); // ДОБАВЛЕНО
-
-
     QVBoxLayout* mainLayout;
-
+    QGroupBox* modeGroup;
     QGroupBox* createGroup;
+    QGroupBox* rootsGroup;
+    QGroupBox* operationsGroup;
+    QGroupBox* displayGroup;
+
+    QRadioButton* realModeRadio;
+    QRadioButton* complexModeRadio;
+    QButtonGroup* modeButtonGroup;
+
     QSpinBox* degreeSpinBox;
     QLineEdit* leadingCoeffRe;
     QLineEdit* leadingCoeffIm;
+    QLabel* leadingCoeffImLabel;
+
+    QVBoxLayout* rootsLayout;
+    QList<QLineEdit*> rootReInputs;
+    QList<QLineEdit*> rootImInputs;
+    QList<QLabel*> rootImLabels;
+
     QPushButton* createPolynomBtn;
 
-    QGroupBox* rootsGroup;
-    QVBoxLayout* rootsLayout;
-    QVector<QLineEdit*> rootReInputs;
-    QVector<QLineEdit*> rootImInputs;
-
-    QGroupBox* operationsGroup;
     QLineEdit* xValueRe;
     QLineEdit* xValueIm;
+    QLabel* xValueImLabel;
     QPushButton* calculateValueBtn;
+
     QLineEdit* newLeadingCoeffRe;
     QLineEdit* newLeadingCoeffIm;
+    QLabel* newLeadingCoeffImLabel;
     QPushButton* changeLeadingCoeffBtn;
+
     QSpinBox* newDegreeSpinBox;
     QPushButton* resizeBtn;
+
     QSpinBox* rootIndexSpinBox;
     QLineEdit* newRootRe;
     QLineEdit* newRootIm;
+    QLabel* newRootImLabel;
     QPushButton* changeRootBtn;
 
-    QGroupBox* displayGroup;
     QPushButton* showFactorFormBtn;
     QPushButton* showStandardFormBtn;
 
     QLabel* polynomialDisplayLabel;
 
     bool polynomialCreated;
+    bool isComplexMode;
+
+    void setupUI();
+    void updateRootsGroup();
+    void clearRootsInputs();
+    void updateOperationsEnabled();
+    void updateUIForMode();
+    void updateDisplayText(const QString& text, const QString& style = "");
+    QString appendPolynomialData(QString msg);
+
+public:
+    explicit TInterface(QWidget* parent = nullptr);
+    ~TInterface();
+
+public slots:
+    void formRequest();
+    void answer(QString msg);
+    void onModeChanged();
+    void onDegreeChanged();
+
+signals:
+    void request(QString msg);
 };
 
-#endif // TINTERFACE_H
+#endif

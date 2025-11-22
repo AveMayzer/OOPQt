@@ -9,6 +9,13 @@ const QChar separator(';');
 
 QString& operator<< (QString& m, const QString& s);
 
+
+enum PolynomMode {
+    REAL_MODE = 0,
+    COMPLEX_MODE = 1
+};
+
+
 enum messages {
     CREATE_POLYNOMIAL_REQUEST,
     CREATE_POLYNOMIAL_ANSWER,
@@ -23,6 +30,8 @@ enum messages {
     SHOW_FACTOR_FORM_REQUEST,
     SHOW_STANDARD_FORM_REQUEST,
     SHOW_POLYNOMIAL_ANSWER,
+    RESET_POLYNOMIAL_REQUEST,
+    RESET_POLYNOMIAL_ANSWER,
     ERROR_ANSWER
 };
 
